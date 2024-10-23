@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "src"
+version = "0.1.0"
+description = ""
+authors = ["data-max"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pyspark = "3.5.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "0.6.2"
+pre-commit = "^3.8.0"
+pytest = "8.3.3"
+psycopg2-binary="2.9.10"
+psycopg2 = "2.9.10"
+python-dotenv = "1.0.1"
+Faker = "30.8.0"
+setuptools="75.2.0"
+pandas="2.2.3"
+pyarrow="17.0.0"
+numpy="1.26.3"
