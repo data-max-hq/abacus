@@ -8,7 +8,7 @@ from db_connection_util import (
     read_data_from_postgres,
     update_to_database,
 )
-from src.core.structured_etl import StructuredEtl
+from src.common.structured_etl import StructuredEtl
 
 DPD_CREDIT_CARDS_TABLE = "atmp_t17_dpd_credit_cards"
 CARD_BALANCE_TABLE = "t22_card_balance"
