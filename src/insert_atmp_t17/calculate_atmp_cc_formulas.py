@@ -1,6 +1,15 @@
 # Third-party imports
 from pyspark.sql.functions import col, when, lit, coalesce, expr
 import pyspark.sql.functions as F
+from src.unwinding.do_calculations_unwinding_cc import do_calculations_unwinding_cc
+
+from src.insert_default_event.insert_default_events_cc import insert_default_events_cc
+
+from src.insert_default.calculate_cc_monthly_recovery import (
+    calculate_cc_monthly_recovery,
+)
+
+from src.insert_default.calculate_cc_default import calculate_cc_default
 
 # Local imports
 from db_connection_util import (
@@ -13,20 +22,8 @@ from db_connection_util import (
 # Relative imports from current package
 from .calculate_cc_dpd_ho2 import calculate_cc_dpd_ho2
 from .calculate_cc_dpd_ho import calculate_cc_dpd_ho
-from .calc_grossinteres_mtd import calc_grossinterest_mtd
-from .calc_gca_value import calc_gca_value
-
-# Imports from other packages in your project
-from Abacus_insert_default_old.calculate_cc_monthly_recovery import (
-    calculate_cc_monthly_recovery,
-)
-from Abacus_insert_default_old.calculate_cc_default import calculate_cc_default
-from src.insert_default_event.insert_default_events_cc import (
-    insert_default_events_cc,
-)
-from Abacus_unwinding_old.do_calculations_unwinding_cc import (
-    do_calculations_unwinding_cc,
-)
+from .calc_gross_interest_mtd import calc_gross_interest_mtd
+from .calc_gca_value_refactored import GcsEtl
 
 
 def calculate_atmp_cc_formulas():
@@ -310,11 +307,12 @@ def calculate_atmp_cc_formulas():
 
     # Call additional calculations
     print("Calling calc_gca_value...")
-    calc_gca_value()
+    gca_etl = GcsEtl()
+    gca_etl.run()
     print("Calling do_calculations_unwinding_cc...")
     do_calculations_unwinding_cc()
     print("Calling calc_grossinterest_mtd...")
-    calc_grossinterest_mtd()
+    calc_gross_interest_mtd()
 
     print("calculate_atmp_cc_formulas completed succesfully.")
 

@@ -1,35 +1,22 @@
-import pytest
-from pyspark.sql import SparkSession
-from pyspark.sql import Row
 from faker import Faker
-from warnings import filterwarnings
+from pyspark.sql import Row
+from pyspark.sql import SparkSession
+
 from src.insert_atmp_t17.calc_gca_value_refactored import GcsEtl
 
-filterwarnings("ignore")
 fake = Faker()
 
 
-@pytest.fixture(scope="session")
-def spark():
-    spark = (
-        SparkSession.builder.master("local")
-        .config("spark.driver.host", "localhost")
-        .config("spark.port.maxRetries", 100)
-        .getOrCreate()
-    )
-
-    yield spark
-    spark.stop()
-
-
-def test_transform(spark):
+def test_transform(spark_session: SparkSession) -> None:
     # Given
     product_id = "123456"
-    working_date_df = generate_fake_working_date_df(spark)
-    cc_working_date_df = generate_fake_cc_working_day_df(spark)
-    card_balance = generate_fake_card_balance_df(spark=spark, id_product=product_id)
+    working_date_df = generate_fake_working_date_df(spark_session=spark_session)
+    cc_working_date_df = generate_fake_cc_working_day_df(spark_session=spark_session)
+    card_balance = generate_fake_card_balance_df(
+        spark_session=spark_session, id_product=product_id
+    )
     dpd_credit_cards = generate_fake_dpd_credit_cards_df(
-        spark=spark, id_product=product_id
+        spark_session=spark_session, id_product=product_id
     )
 
     # When
@@ -47,8 +34,9 @@ def test_transform(spark):
     assert {"id_product", "gca"} == set(df.columns)
     assert 2 == df.select("id_product").distinct().count()
 
-def generate_fake_working_date_df(spark):
-    return spark.createDataFrame(
+
+def generate_fake_working_date_df(spark_session):
+    return spark_session.createDataFrame(
         data=[
             Row(
                 working_day="2009-05-21",
@@ -83,8 +71,9 @@ def generate_fake_working_date_df(spark):
         ]
     )
 
-def generate_fake_cc_working_day_df(spark):
-    return spark.createDataFrame(
+
+def generate_fake_cc_working_day_df(spark_session):
+    return spark_session.createDataFrame(
         [
             Row(working_day="2013-01-12"),
             Row(working_day="2013-01-14"),
@@ -95,8 +84,9 @@ def generate_fake_cc_working_day_df(spark):
         ]
     )
 
-def generate_fake_card_balance_df(spark: SparkSession, id_product: str):
-    return spark.createDataFrame(
+
+def generate_fake_card_balance_df(spark_session: SparkSession, id_product: str):
+    return spark_session.createDataFrame(
         [
             Row(
                 working_day="2013-01-20",
@@ -115,8 +105,9 @@ def generate_fake_card_balance_df(spark: SparkSession, id_product: str):
         ]
     )
 
-def generate_fake_dpd_credit_cards_df(spark: SparkSession, id_product: str):
-    return spark.createDataFrame(
+
+def generate_fake_dpd_credit_cards_df(spark_session: SparkSession, id_product: str):
+    return spark_session.createDataFrame(
         [
             Row(
                 gca=1474.09,

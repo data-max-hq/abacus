@@ -4,7 +4,7 @@ from db_connection_util import (
     get_postgres_properties,
     read_data_from_postgres,
 )
-from isexistingcustomer import isexistingcustomer
+from is_existing_customer import is_existing_customer
 
 
 def insert_t01_customer(
@@ -27,9 +27,9 @@ def insert_t01_customer(
         schema_name = "ABACUS_A5"
 
         # Check if customer exists
-        noexist = isexistingcustomer(inrp_customer)
+        customer_exists = is_existing_customer(inrp_customer)
 
-        if noexist == 0:
+        if customer_exists == 0:
             # Prepare data for insertion
             data = [
                 (

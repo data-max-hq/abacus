@@ -14,7 +14,29 @@
          type: string
 
  jobs:
+   lint:
+     runs-on: ubuntu-latest
+     steps:
+       - uses: actions/checkout@v3
+
+       - name: Set up Python
+         uses: actions/setup-python@v4
+         with:
+           python-version: '3.12'
+
+       - name: Install Poetry
+         run: |
+           curl -sSL https://install.python-poetry.org | python3 -
+           echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+       - name: Install dependencies
+         run: poetry install
+
+       - name: Run pre-commit
+         run: poetry run pre-commit run --all-files
+
    test:
+     needs: lint
      runs-on: ubuntu-latest
 
      steps:
@@ -43,7 +65,7 @@
 #     - name: Checkout repository
 #       uses: actions/checkout@v2
 #
-#     - name: Install AWS CLI and Boto3
+#     - name: Install AWS CLI and Boto3a
 #       run: |
 #         python -m pip install --upgrade pip
 #         pip install awscli boto3

@@ -1,14 +1,13 @@
-from src.functions.func_calc_grossinterest_mtd import calc_grossinterest_mtd_sql
+from src.functions.func_calc_gross_interest_mtd import calc_gross_interest_mtd_sql
 from db_connection_util import (
     get_spark_session,
     get_postgres_properties,
     read_data_from_postgres,
     update_to_database,
 )
-# from Functions_old.func_calc_grossinterest_mtd_sql import calc_grossinterest_mtd_sql  # Import the SQL-based function
 
 
-def calc_grossinterest_mtd():
+def calc_gross_interest_mtd():
     try:
         # Get Spark session and Postgres properties
         spark = get_spark_session()
@@ -21,7 +20,7 @@ def calc_grossinterest_mtd():
         )
 
         # Apply the SQL-based calculation for gross interest MTD
-        df_updated = calc_grossinterest_mtd_sql(df_t17)
+        df_updated = calc_gross_interest_mtd_sql(df_t17)
 
         # Write the updated DataFrame to a temporary table in the database
         df_updated.write.jdbc(
@@ -51,4 +50,4 @@ def calc_grossinterest_mtd():
 
 
 if __name__ == "__main__":
-    calc_grossinterest_mtd()
+    calc_gross_interest_mtd()

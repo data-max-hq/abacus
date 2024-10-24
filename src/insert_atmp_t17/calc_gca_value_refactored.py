@@ -15,6 +15,7 @@ CARD_BALANCE_TABLE = "t22_card_balance"
 WORKING_DAY_TABLE = "w01_working_day"
 CC_WORKING_DAY_TABLE = "w02_ccworking_day"
 
+
 class GcsEtl(StructuredEtl):
     def __init__(self):
         self.postgres_properties = get_postgres_properties()
@@ -103,14 +104,22 @@ class GcsEtl(StructuredEtl):
 
         update_to_database(update_query)
 
-if __name__ == "__main__":
-    try:
-        print("GcsEtl processing started ...")
-        gsc_data_processor = GcsEtl()
-        df_t17, df_t22, df_w01, df_w02 = gsc_data_processor.read()
-        result = gsc_data_processor.transform(df_t17, df_t22, df_w01, df_w02)
-        gsc_data_processor.persist(result[0])
-        print("GcsEtl processing completed successfully")
+    def run(self) -> None:
+        try:
+            print("GcsEtl processing started ...")
+            dpd_credit_cards_df, card_balance_df, working_day_df, cc_working_day_df = (
+                self.read()
+            )
+            result = self.transform(
+                dpd_credit_cards_df, card_balance_df, working_day_df, cc_working_day_df
+            )[0]
+            self.persist(result)
+            print("GcsEtl processing completed successfully")
 
-    except Exception as e:
-        print(f"GcsEtl processing failed with error: {str(e)}")
+        except Exception as e:
+            print(f"GcsEtl processing failed with error: {str(e)}")
+
+
+if __name__ == "__main__":
+    gce_etl = GcsEtl()
+    gce_etl.run()

@@ -1,7 +1,12 @@
 from pyspark.sql.functions import col, lit, concat, when, max, add_months
+from src.insert_default.calc_default_fields_cc import calc_default_fields_cc
 
-from Abacus_insert_default_old.calc_cross_default_cc import calc_cross_default_cc
-from Abacus_insert_default_old.calc_default_fields_cc import calc_default_fields_cc
+from src.insert_default.calc_cross_default_cc import calc_cross_default_cc
+
+from src.insert_default.calc_end_of_probation_cc import calc_end_of_probation_cc
+
+from src.insert_default.calc_probation_cc import calc_probation_cc
+
 from src.functions.no_dup_words import no_dup_words
 from db_connection_util import (
     get_spark_session,
@@ -9,8 +14,6 @@ from db_connection_util import (
     read_data_from_postgres,
     update_to_database,
 )
-from Abacus_insert_default_old.calc_probation_cc import calc_probation_cc
-from Abacus_insert_default_old.calc_end_of_probation_cc import calc_end_of_probation_cc
 
 
 def calculate_cc_default():

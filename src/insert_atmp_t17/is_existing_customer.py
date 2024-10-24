@@ -6,7 +6,7 @@ from db_connection_util import (
 )
 
 
-def isexistingcustomer(inrp_customer):
+def is_existing_customer(inrp_customer):
     try:
         spark = get_spark_session()
         get_postgres_properties()

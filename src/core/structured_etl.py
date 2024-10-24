@@ -14,3 +14,7 @@ class StructuredEtl(ABC):
     @abstractmethod
     def persist(self, df: DataFrame) -> None:
         pass
+
+    @abstractmethod
+    def run(self) -> None:
+        pass

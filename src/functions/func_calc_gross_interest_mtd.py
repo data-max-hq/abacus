@@ -1,7 +1,7 @@
 from pyspark.sql import functions as F
 
 
-def calc_grossinterest_mtd_sql(df):
+def calc_gross_interest_mtd_sql(df):
     """
     Applies the SQL transformations to calculate the gross_interest_mtd_lcy and gross_interest_mtd_ocy
     based on the gross_interest_daily_* columns and the working_day.
