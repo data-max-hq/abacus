@@ -1,10 +1,22 @@
+import pytest
 from faker import Faker
 from pyspark.sql import Row
 from pyspark.sql import SparkSession
-from .spark_session_fixture import spark_session
 from src.insert_atmp_t17.calc_gca_value_refactored import GcsEtl
 
 fake = Faker()
+
+
+@pytest.fixture(scope="session")
+def spark_session() -> SparkSession:
+    spark = (
+        SparkSession.builder.master("local")
+        .config("spark.driver.host", "localhost")
+        .getOrCreate()
+    )
+
+    yield spark
+    spark.stop()
 
 
 def test_transform(spark_session: SparkSession) -> None:
