@@ -61,6 +61,7 @@ jobs:
           aws s3 cp main.py s3://${{ env.BUCKET_NAME }}/${{ env.BRANCH_NAME }}/$DATE/${{ env.COMMIT_HASH }}/main.py
           aws s3 cp main.py s3://${{ env.BUCKET_NAME }}/${{ env.BRANCH_NAME }}/latest/main.py
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
