@@ -2,7 +2,10 @@ import pytest
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, LongType
 from pyspark.sql.functions import expr
-from src.abacus_insert_atmp_t17.commit_atmp18_into_t18 import commit_atmpt18_into_t18
+
+from src.insert_atmp_t17_deprecated.commit_atmp18_into_t18 import (
+    commit_atmpt18_into_t18,
+)
 
 
 # Sample data schema and fixture for SparkSession

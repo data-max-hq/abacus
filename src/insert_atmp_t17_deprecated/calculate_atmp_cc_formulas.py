@@ -1,6 +1,8 @@
 # Third-party imports
 from pyspark.sql.functions import col, when, lit, coalesce, expr
 import pyspark.sql.functions as F
+from src.insert_atmp_t17.calc_gca_value_refactored import GcsEtl
+
 from src.unwinding.do_calculations_unwinding_cc import do_calculations_unwinding_cc
 
 from src.insert_default_event.insert_default_events_cc import insert_default_events_cc
@@ -23,7 +25,6 @@ from db_connection_util import (
 from .calculate_cc_dpd_ho2 import calculate_cc_dpd_ho2
 from .calculate_cc_dpd_ho import calculate_cc_dpd_ho
 from .calc_gross_interest_mtd import calc_gross_interest_mtd
-from .calc_gca_value_refactored import GcsEtl
 
 
 def calculate_atmp_cc_formulas():
