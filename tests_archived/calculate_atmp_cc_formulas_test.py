@@ -1,13 +1,10 @@
-import sys
-import os
-
-# Add the parent directory to the system path for module imports
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from src.abacus_insert_atmp_t17.calculate_atmp_cc_formulas import (
-    calculate_atmp_cc_formulas,
-)  # Replace with the actual module name
-import pytest
 from unittest.mock import patch, MagicMock
+
+import pytest
+
+from src.insert_atmp_t17_deprecated.calculate_atmp_cc_formulas import (
+    calculate_atmp_cc_formulas,
+)
 
 
 # Mocking the dependencies

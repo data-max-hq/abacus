@@ -1,13 +1,7 @@
-import sys
-import os
 from unittest.mock import patch, MagicMock
 import pytest
 
-# Add the parent directory to the system path for module imports
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from src.abacus_insert_atmp_t17.calculate_cc_dpd_ho2 import (
-    calculate_cc_dpd_ho2,
-)  # Adjust the import based on your actual module structure
+from src.insert_atmp_t17_deprecated.calculate_cc_dpd_ho2 import calculate_cc_dpd_ho2
 
 
 # Mocking the dependencies

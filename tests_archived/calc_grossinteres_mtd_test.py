@@ -2,12 +2,12 @@ import sys
 import os
 
 from pyspark.sql.functions import col
+from src.insert_atmp_t17_deprecated.calc_gross_interest_mtd import (
+    calc_gross_interest_mtd,
+)
 
 # Add the parent directory to the system path for module imports
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from src.abacus_insert_atmp_t17.calc_grossinteres_mtd import (
-    calc_grossinterest_mtd,
-)  # Replace with the actual module name
 import pytest
 from unittest.mock import patch, MagicMock
 
@@ -69,7 +69,7 @@ def test_calc_grossinterest_mtd(
     df_updated_mock.write.jdbc = MagicMock()
 
     # Call the function to test
-    calc_grossinterest_mtd()
+    calc_gross_interest_mtd()
 
     # Assertions
     mock_spark_session.read.jdbc.assert_called_once_with(

@@ -8,7 +8,8 @@ from pyspark.sql.types import (
     IntegerType,
     DoubleType,
 )
-from src.abacus_insert_atmp_t17.calculate_cc_dpd_ho import calculate_cc_dpd_ho
+
+from src.insert_atmp_t17_deprecated.calculate_cc_dpd_ho import calculate_cc_dpd_ho
 
 
 # Mock data for testing
