@@ -2,7 +2,11 @@
 name = "src"
 version = "0.1.0"
 description = ""
-authors = ["data-max"]
+authors = [
+    "Orgest Belba <orgest@data-max.io>",
+    "Ergin Gorishti <ergin@data-max.io>",
+    "Dardan Xhymshiti <dardan@data-max.io>"
+]
 readme = "README.md"
 
 [tool.poetry.dependencies]
